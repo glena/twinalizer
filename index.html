@@ -1,0 +1,65 @@
+<html>
+    <head>
+
+    </head>
+    <body>
+      <button onclick="load()">Load</button>
+      <button onclick="load_friendsnf()">Load FNF</button>
+      <input type="text" id="page" value="0" />
+
+      <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+      <script src="//cdn.auth0.com/js/lock-7.js"></script>
+      <script type="text/javascript">
+
+        var domain = 'twinalizer.auth0.com';
+        var cid = 'UqaYny4ORgGIQUZRfbIeYe31FDPGOn1P';
+
+        var user_token;
+        
+        var widget = new Auth0Lock(cid, domain);
+
+        widget.show({
+          closable: false,
+          sso:false,
+          authParams: {
+            scope: 'openid identities'
+          }
+        },function (err, profile, token) {
+
+          user_token = token;
+
+        });
+
+        function load() {
+          $.ajax("https://webtask.it.auth0.com/api/run/wt-5491169046745-0/twinalizer_tw/changes/2015-9-24?webtask_no_cache=1", {
+              headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + user_token
+              }
+            })
+            .done(function(data) {
+              console.log(data);
+            })
+        }
+        function load_friendsnf() {
+          var page = document.getElementById('page');
+          var page_no = page.value;
+
+          page.value = parseInt(page.value) + 1;
+
+          $.ajax("https://webtask.it.auth0.com/api/run/wt-5491169046745-0/twinalizer_tw/friends-not-followers/"+page_no+"?webtask_no_cache=1", {
+              headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + user_token
+              }
+            })
+            .done(function(data) {
+              console.log(data);
+            })
+        }
+
+      </script>
+    </body>
+</html>
