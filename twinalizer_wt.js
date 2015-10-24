@@ -133,52 +133,5 @@ app.get('/friends-not-followers/:page',
     })
 
   });
-  // function(req,res,next) {
-  //   if (!req.update_twitter_info) next();
-
-  //   req.twitter.get('followers/ids', { },  function (err, data, response) {
-
-  //     var ids = data.ids;
-
-  //     var date = new Date();
-  //     var day = date.getDate();
-  //     var monthIndex = date.getMonth();
-  //     var year = date.getFullYear();
-  //     var today = year + "-" + monthIndex + "-" + day;
-
-  //     req.a0_user.changes[today] = {
-  //       new_followers:_.difference(ids,req.a0_user.followers),
-  //       lost_followers:_.difference(req.a0_user.followers,ids)
-  //     };
-
-  //     req.a0_user.followers = ids;
-
-  //     next();
-
-  //   })
-
-  // },
-  // function(req,res,next) {
-  //   if (!req.update_twitter_info) next();
-
-  //   req.twitter.get('friends/ids', { },  function (err, data, response) {
-
-  //     var ids = data.ids;
-
-  //     req.a0_user.friends = ids;
-  //     next();
-
-  //   })
-
-  // },
-  // function(req,res,next) {
-
-  //   req.db.collection('users').update({ user_id:req.a0_user.user_id }, req.a0_user, {upsert:true}, function(){
-
-  //     res.json(req.a0_user).end();
-
-  //   });
-
-  // });
 
 module.exports = Webtask.fromExpress(app);
